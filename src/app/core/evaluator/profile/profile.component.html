@@ -1,0 +1,136 @@
+<ion-header>
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button color="ghg-green"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-title>
+    {{'PROFILE.profile' | translate}}
+  </ion-title>
+</ion-header>
+
+<ion-content>
+  
+  <ion-grid class="settings">
+
+    <ion-row>
+      <ion-col>
+        <div class="section-title">
+          <h3>{{'PROFILE.editInfo' | translate}}</h3>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <form [formGroup]="userForm">
+          <ion-item mode="ios">
+            <ion-label position="stacked">{{'PROFILE.fullName' | translate}}</ion-label>
+            <ion-input 
+              clearInput 
+              type="text"
+              [value]="user.full_name"
+              formControlName="full_name"
+              placeholder="{{'PROFILE.fullNamePlaceholder' | translate}}"
+            >
+            </ion-input>
+          </ion-item>
+
+          <ion-item mode="ios">
+            <ion-label position="stacked">{{'PROFILE.newNRIC' | translate}}</ion-label>
+            <ion-input 
+              clearInput 
+              type="text"
+              [value]="user.new_nric"
+              formControlName="new_nric"
+              placeholder="{{'PROFILE.newNRICPlaceholder' | translate}}"
+            >
+            </ion-input>
+          </ion-item>
+
+          <ion-item mode="ios">
+            <ion-label position="stacked">{{'PROFILE.oldNRIC' | translate}}</ion-label>
+            <ion-input 
+              clearInput 
+              type="text"
+              [value]="user.old_nric"
+              formControlName="old_nric"
+              placeholder="{{'PROFILE.oldNRICPlaceholder' | translate}}"
+            >
+            </ion-input>
+          </ion-item>
+          
+          <ion-item mode="ios">
+            <ion-label position="stacked">{{'PROFILE.occupation' | translate}}</ion-label>
+            <ion-input 
+              clearInput 
+              type="text"
+              [value]="user.occupation"
+              formControlName="occupation"
+              placeholder="{{'PROFILE.occupationPlaceholder' | translate}}"
+              
+            >
+            </ion-input>
+          </ion-item>
+
+          <ion-item mode="ios">
+            <ion-label position="stacked">{{'PROFILE.tel' | translate}}</ion-label>
+            <ion-input 
+              clearInput 
+              type="text"
+              [value]="user.tel"
+              formControlName="tel"
+              placeholder="{{'PROFILE.telPlaceholder' | translate}}"
+            >
+            </ion-input>
+          </ion-item>
+
+          <ion-item mode="ios">
+            <ion-label position="stacked">{{'PROFILE.phone' | translate}} *</ion-label>
+            <ion-input 
+              clearInput 
+              type="text"
+              [value]="user.phone"
+              formControlName="phone"
+              placeholder="{{'PROFILE.phonePlaceholder' | translate}}"
+            >
+            </ion-input>
+          </ion-item>
+
+          <ion-item mode="ios">
+            <ion-label position="stacked">{{'PROFILE.email' | translate}}</ion-label>
+            <ion-input 
+              clearInput 
+              type="text"
+              [value]="user.email"
+              formControlName="email"
+              placeholder="{{'PROFILE.emailPlaceholder' | translate}}"
+            >
+            </ion-input>
+          </ion-item>
+
+          <ion-item mode="ios" lines="none">
+            <ion-row>
+              <ion-col>
+                <div class="btn-upload-item">
+                  <div class="btn-upload ion-activatable">
+                    <button (click)="openUploadSheet()">
+                      <ion-ripple-effect></ion-ripple-effect> {{'PROFILE.uploadNRIC' | translate}}
+                    </button>
+                  </div>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-item>
+        </form>
+
+        <ion-item lines="none">
+          <ion-button class="btn-green-lg mt-1" (click)="update()">{{'PROFILE.update' | translate}}</ion-button>
+        </ion-item>
+
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+</ion-content>

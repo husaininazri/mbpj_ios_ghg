@@ -1,0 +1,103 @@
+<ion-header mode="ios">
+	<ion-toolbar mode="ios">
+		<ion-buttons slot="start">
+			<ion-back-button color="ghg-green"></ion-back-button>
+		</ion-buttons>
+	</ion-toolbar>
+	<ion-title>
+		{{'APPLY.apply' | translate}}
+	</ion-title>
+</ion-header>
+
+<ion-content>
+	<ion-grid class="settings">
+		<div *ngIf="!isStartApplication">
+			<ion-slides pager="true" [options]="slidesOptions">
+				<ion-slide>
+					<ion-card mode="ios">
+						<ion-row>
+							<ion-col class="front-layer">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+									<path fill="#69bb7b" fill-opacity="1"
+										d="M0,128L48,160C96,192,192,256,288,261.3C384,267,480,213,576,176C672,139,768,117,864,106.7C960,96,1056,96,1152,117.3C1248,139,1344,181,1392,202.7L1440,224L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z">
+									</path>
+								</svg>
+								<div class="mt-2 mb-3">
+									<img [src]="imgApplyBanner" class="img-6 img-center">
+								</div>
+								<div class="text-center pt-3 pl-3 pr-3 mb-2">
+									<h4 class="m-0">{{'APPLY.ad1' | translate}}</h4>
+								</div>
+							</ion-col>
+						</ion-row>
+						<ion-card-content>
+							
+						</ion-card-content>
+					</ion-card>
+				</ion-slide>
+				<ion-slide>
+					<ion-card mode="ios">
+						<ion-row>
+							<ion-col>
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+									<path fill="#69bb7b" fill-opacity="1"
+										d="M0,128L48,160C96,192,192,256,288,261.3C384,267,480,213,576,176C672,139,768,117,864,106.7C960,96,1056,96,1152,117.3C1248,139,1344,181,1392,202.7L1440,224L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z">
+									</path>
+								</svg>
+								<div class="mt-2 mb-3">
+									<img [src]="imgApplyBanner" class="img-6 img-center">
+								</div>
+								<div class="text-center pt-3 pl-3 pr-3 mb-2">
+									<h4 class="m-0">{{'APPLY.ad1' | translate}}</h4>
+								</div>
+							</ion-col>
+						</ion-row>
+						<ion-card-content>
+							
+						</ion-card-content>
+					</ion-card>
+				</ion-slide>
+			</ion-slides>
+			<ion-button class="btn-info" (click)="startApply()">{{'APPLY.getStarted' | translate}}</ion-button>
+		</div>
+
+		<div *ngIf="isStartApplication">
+			<div class="section-title">
+				<h3>{{'APPLY.title' | translate}}</h3>
+			</div>
+			<div *ngIf="houses">
+				<ion-row *ngFor="let house of houses">
+					<ion-col>
+						<ion-card mode="ios">
+							<ion-card-content>
+								<ion-item class="history">
+									<ion-thumbnail slot="start">
+										<img [src]="imgHouseThumbnail">
+									</ion-thumbnail>
+									<ion-label class="ion-text-wrap">
+										<p>{{house.address}}</p>
+										<p *ngIf="house.building_type == 'CD'">{{'APPLY.cd' | translate}}</p>
+										<p *ngIf="house.building_type == 'FL'">{{'APPLY.fl' | translate}}</p>
+										<p *ngIf="house.building_type == 'TO'">{{'APPLY.to' | translate}}</p>
+										<p *ngIf="house.building_type == 'TE'">{{'APPLY.te' | translate}}</p>
+										<p *ngIf="house.building_type == 'BS'">{{'APPLY.bs' | translate}}</p>
+										<p *ngIf="house.building_type == 'AS'">{{'APPLY.as' | translate}}</p>
+										<p *ngIf="house.building_type == 'OT'">{{'APPLY.ot' | translate}}</p>
+									</ion-label>
+									<div class="btn-upload-item">
+										<div class="btn-upload ion-activatable">
+											<button (click)="selectHouse(house)">
+												<ion-ripple-effect></ion-ripple-effect> {{'APPLY.selectButton' | translate}}
+											</button>
+										</div>
+									</div>
+								</ion-item>
+							</ion-card-content>
+						</ion-card>
+					</ion-col>
+				</ion-row>
+			</div>
+		</div>
+
+	</ion-grid>
+</ion-content>

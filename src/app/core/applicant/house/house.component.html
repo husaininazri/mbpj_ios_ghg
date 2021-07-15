@@ -1,0 +1,75 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button color="ghg-green"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-title>
+    MyHome
+  </ion-title>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid>
+
+    <ion-row>
+      <ion-col>
+        <div class="section-title">
+          <ion-row>
+            <ion-col>
+              <h3>{{'HOUSE.registeredList' | translate}}</h3>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <div *ngIf="!isGotHouse; else gotHouse" class="error-section">
+      <ion-img [src]="imgNotFound"></ion-img>
+      <p>{{'HOUSE.noHouse' | translate}}</p>
+    </div>
+    <ng-template #gotHouse>
+      <ion-row *ngFor="let house of houses">
+        <ion-col>
+          <ion-card mode="ios">
+            <ion-card-content>
+              <ion-item class="history">
+                <ion-thumbnail slot="start">
+                  <img [src]="imgHouseThumbnail">
+                </ion-thumbnail>
+                <ion-label class="ion-text-wrap">
+                  <p>
+                    {{house.address}}<span *ngIf="house.postcode">, {{house.postcode}}, </span><span *ngIf="house.area">{{house.area}}</span>
+                  </p>
+                  <p *ngIf="house.building_type == 'CD'">{{'HOUSE.cd' | translate}}</p>
+                  <p *ngIf="house.building_type == 'FL'">{{'HOUSE.fl' | translate}}</p>
+                  <p *ngIf="house.building_type == 'TO'">{{'HOUSE.to' | translate}}</p>
+                  <p *ngIf="house.building_type == 'TE'">{{'HOUSE.te' | translate}}</p>
+                  <p *ngIf="house.building_type == 'BS'">{{'HOUSE.bs' | translate}}</p>
+                  <p *ngIf="house.building_type == 'AS'">{{'HOUSE.as' | translate}}</p>
+                  <p *ngIf="house.building_type == 'OT'">{{'HOUSE.ot' | translate}}</p>
+                </ion-label>
+                <div class="btn-upload-item">
+                  <div class="btn-upload ion-activatable">
+                    <button (click)="viewHouseDetail(house)">
+                      <ion-ripple-effect></ion-ripple-effect> {{'HOUSE.view' | translate}}
+                    </button>
+                  </div>
+                </div>
+              </ion-item>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ng-template>
+    
+  </ion-grid>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addNewHouse()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

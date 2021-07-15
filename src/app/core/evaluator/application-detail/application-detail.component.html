@@ -1,0 +1,79 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button color="ghg-green"></ion-back-button>
+      <!--<ion-menu-button color="ghg-green"></ion-menu-button>-->
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-title>
+    Application
+  </ion-title>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid class="settings">
+    <div class="section-title">
+      <p>House</p>
+    </div>
+    <ion-row>
+      <ion-col>
+        
+        <ion-item >
+            <ion-label class="ion-text-wrap">
+              <h3>Applicant</h3>
+              <p> {{tempApplicant.full_name}}</p>
+            </ion-label>
+        </ion-item>
+        <ion-item >
+            <ion-label class="ion-text-wrap">
+              <h3>Address</h3>
+              <p> {{tempHouse.address}}</p>
+            </ion-label>
+        </ion-item>
+        <ion-item >
+            <ion-label class="ion-text-wrap">
+              <h3>Assessment Tax Account</h3>
+              <p> {{tempHouse.assessment_tax_account}}</p>
+            </ion-label>
+        </ion-item>
+        <ion-item >
+            <ion-label class="ion-text-wrap">
+              <h3>Date Applied</h3>
+              <p> {{tempApplication.date_submitted}}</p>
+            </ion-label>
+        </ion-item>
+
+      </ion-col>
+    </ion-row>
+    <div class="section-title">
+      <p>Set evaluation appointment</p>
+    </div>
+    <ion-row>
+      <ion-col>
+        <form [formGroup]="evaluationForm">
+          <ion-item>
+            <ion-label position="stacked" mode="ios">Date</ion-label>
+            <ion-datetime 
+                displayFormat="YYYY-MM-DD" 
+                pickerFormat="YYYY-MM-DD"
+                formControlName="date"
+              >
+            </ion-datetime>
+          </ion-item>
+  
+          <ion-item>
+            <ion-label position="stacked" mode="ios">Session</ion-label>
+            <ion-select placeholder="Select session" formControlName="session">
+              <ion-select-option *ngFor="let session of session_type" value="{{session.value}}">{{session.text}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </form>
+        <ion-item lines="none">
+          <ion-button class="btn-green-lg mt-1" (click)="doSetEvaluation()">Set appointment</ion-button>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

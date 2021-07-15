@@ -1,0 +1,24 @@
+<ion-content class="login-content" slot="fixed">
+	<div class="login-bg"></div>
+	<img class="login-logo" [src]="imgMBPJ">
+	<img class="login-logo" [src]="imgSmartPJ">
+	<div class="login-title">
+		<h2>Skim Rebat Cukai Taksiran Rumah Mesra Alam Hijau Petaling Jaya</h2>
+	</div>
+	<div class="login-selector">
+		<ion-item lines="none">
+			<ion-label position="stacked">{{ 'LOGIN.line1' | translate}}</ion-label>
+			<ion-select [(ngModel)]="selectedUserType" interface="alert" placeholder="{{ 'LOGIN.applicant' | translate}}">
+				<ion-select-option selected value="AP">{{ 'LOGIN.applicant' | translate}}</ion-select-option>
+				<ion-select-option value="EV">{{ 'LOGIN.evaluator' | translate}}</ion-select-option>
+			</ion-select>
+		</ion-item>
+		<ion-button class="btn-green-lg" (click)="goToUserLogin()">{{ 'LOGIN.btnLogin' | translate}}</ion-button>
+	</div>
+	<div class="login-footer">
+		<p>
+			<span (click)="changeLanguageBM()">Bahasa Melayu</span> | <span (click)="changeLanguageEN()">English</span>
+		</p>
+		<span>Hak cipta terpelihara Majlis Bandaraya Petaling Jaya</span>
+	</div>
+</ion-content>

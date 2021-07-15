@@ -1,0 +1,41 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button color="ghg-green"></ion-back-button>
+      <!--<ion-menu-button color="ghg-green"></ion-menu-button>-->
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-title>
+    Evaluation
+  </ion-title>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="settings" *ngIf="!isConfirm">
+    <div class="section-title">
+      <h2>Assessment</h2>
+    </div>
+    <ion-row>
+      <ion-col>
+        <ion-slides pager="true">
+          <ion-slide>
+            <ion-card>
+              <div class="section-title">
+                <p>Energy</p>
+              </div>
+              <mat-accordion>
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header collapsedHeight="*" expandedHeight="*">
+                    <mat-panel-title class="text-left">
+                      
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                </mat-expansion-panel>
+              </mat-accordion>
+            </ion-card>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

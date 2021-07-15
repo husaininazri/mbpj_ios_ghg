@@ -1,0 +1,277 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button color="ghg-green"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-title>
+    {{ "APPLYFORM.applyForm" | translate }}
+  </ion-title>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="settings">
+    <ion-row>
+      <ion-col>
+        <div class="section-title">
+          <ion-row>
+            <ion-col>
+              <h3>{{ "APPLYFORM.title" | translate }}</h3>
+            </ion-col>
+            <ion-col size="auto">
+              <div class="btn-upload-item">
+                <div class="btn-upload ion-activatable">
+                  <button (click)="addAssessment()">
+                    <ion-ripple-effect></ion-ripple-effect>
+                    {{ "APPLYFORM.addMoreButton" | translate }}
+                  </button>
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <form [formGroup]="formGroup">
+          <div formArrayName="form">
+            <div
+              [formGroupName]="i"
+              *ngFor="let ind of formGroup.get('form')?.controls; let i = index"
+            >
+              <ion-item-group>
+                <ion-item lines="none" mode="ios">
+                  <ion-label position="stacked"
+                    >{{ "APPLYFORM.assessmentAspect" | translate }}
+                    <span style="color: red">*</span></ion-label
+                  >
+                  <ion-select
+                    formControlName="assessment_aspect"
+                    (ionChange)="changeAssessmentAspect($event, i, ind)"
+                    placeholder="{{
+                      'APPLYFORM.assessmentAspectPlaceholder' | translate
+                    }}"
+                  >
+                    <ion-select-option disabled>{{
+                      "APPLYFORM.energy" | translate
+                    }}</ion-select-option>
+                    <ng-container *ngFor="let energy of tempAssessmentAspects">
+                      <ion-select-option
+                        *ngIf="energy.aspect_type == 'EN'"
+                        value="{{ energy.id }}"
+                      >
+                        {{ energy.name }}. {{ energy.aspect }}
+                      </ion-select-option>
+                    </ng-container>
+                    <ion-select-option disabled>{{
+                      "APPLYFORM.water" | translate
+                    }}</ion-select-option>
+                    <ng-container *ngFor="let water of tempAssessmentAspects">
+                      <ion-select-option
+                        *ngIf="water.aspect_type == 'WA'"
+                        value="{{ water.id }}"
+                      >
+                        {{ water.name }}. {{ water.aspect }}
+                      </ion-select-option>
+                    </ng-container>
+                    <ion-select-option disabled>{{
+                      "APPLYFORM.waste" | translate
+                    }}</ion-select-option>
+                    <ng-container *ngFor="let waste of tempAssessmentAspects">
+                      <ion-select-option
+                        *ngIf="waste.aspect_type == 'WE'"
+                        value="{{ waste.id }}"
+                      >
+                        {{ waste.name }}. {{ waste.aspect }}
+                      </ion-select-option>
+                    </ng-container>
+                    <ion-select-option disabled>{{
+                      "APPLYFORM.transportation" | translate
+                    }}</ion-select-option>
+                    <ng-container
+                      *ngFor="let transportation of tempAssessmentAspects"
+                    >
+                      <ion-select-option
+                        *ngIf="transportation.aspect_type == 'TR'"
+                        value="{{ transportation.id }}"
+                      >
+                        {{ transportation.name }}. {{ transportation.aspect }}
+                      </ion-select-option>
+                    </ng-container>
+                    <ion-select-option disabled>{{
+                      "APPLYFORM.biodiversity" | translate
+                    }}</ion-select-option>
+                    <ng-container
+                      *ngFor="let biodiversity of tempAssessmentAspects"
+                    >
+                      <ion-select-option
+                        *ngIf="biodiversity.aspect_type == 'BI'"
+                        value="{{ biodiversity.id }}"
+                      >
+                        {{ biodiversity.name }}. {{ biodiversity.aspect }}
+                      </ion-select-option>
+                    </ng-container>
+                  </ion-select>
+                </ion-item>
+                <div
+                  *ngIf="
+                    ind.get('assessment_name').value == 'A3' &&
+                    ind.get('assessment_type').value == 'EN'
+                  "
+                >
+                  <ion-item lines="none" mode="ios">
+                    <ion-label position="stacked" class="ion-text-wrap"
+                      >No. of lamp in house</ion-label
+                    >
+                    <ion-input
+                      type="number"
+                      formControlName="total_lamp"
+                      placeholder="E.g.: 10"
+                      (ionChange)="calculateA3(i, ind)"
+                    ></ion-input>
+                  </ion-item>
+                  <ion-item lines="none" mode="ios">
+                    <ion-label position="stacked" class="ion-text-wrap"
+                      >No. of LED in house</ion-label
+                    >
+                    <ion-input
+                      type="number"
+                      formControlName="total_led"
+                      placeholder="E.g.: 10"
+                      (ionChange)="calculateA3(i, ind)"
+                    ></ion-input>
+                  </ion-item>
+                  <ion-item lines="none" mode="ios">
+                    <ion-label position="stacked" class="ion-text-wrap"
+                      >Total saving (%)</ion-label
+                    >
+                    <ion-input
+                      type="number"
+                      formControlName="energy_saving"
+                      readonly
+                    ></ion-input>
+                  </ion-item>
+                </div>
+                <ion-item
+                  lines="none"
+                  mode="ios"
+                  *ngIf="
+                    ind.get('assessment_name').value == 'A6' &&
+                    ind.get('assessment_type').value == 'EN'
+                  "
+                >
+                  <ion-label position="stacked" class="ion-text-wrap"
+                    >Consumption of electricity (kWh/capita/month)</ion-label
+                  >
+                  <ion-input
+                    type="number"
+                    [value]="consumptionElectricity.toFixed(2)"
+                    readonly
+                  ></ion-input>
+                </ion-item>
+                <ion-item
+                  lines="none"
+                  mode="ios"
+                  *ngIf="
+                    ind.get('assessment_name').value == 'B3' &&
+                    ind.get('assessment_type').value == 'WA'
+                  "
+                >
+                  <ion-label position="stacked" class="ion-text-wrap"
+                    >Consumption of water (L/capita/day)</ion-label
+                  >
+                  <ion-input
+                    type="number"
+                    [value]="consumptionWater.toFixed(2)"
+                    readonly
+                  ></ion-input>
+                </ion-item>
+                <ion-item lines="none" mode="ios">
+                  <ion-label position="stacked">{{
+                    "APPLYFORM.remarks" | translate
+                  }}</ion-label>
+                  <ion-input
+                    formControlName="remarks"
+                    placeholder="{{
+                      'APPLYFORM.remarksPlaceholder' | translate
+                    }}"
+                    type="text"
+                  ></ion-input>
+                </ion-item>
+                <ion-item mode="ios" lines="none">
+                  <ion-img
+                    class="text-center"
+                    [src]="tempImageEncoded[i]"
+                    *ngIf="tempImageEncoded[i]"
+                  ></ion-img>
+                </ion-item>
+                <ion-item lines="none" mode="ios">
+                  <ion-label position="stacked"
+                    >{{ "APPLYFORM.attach" | translate }}
+                    <span style="color: red">*</span></ion-label
+                  >
+                  <div class="btn-upload-item">
+                    <div class="btn-upload ion-activatable">
+                      <button (click)="openUploadSheet(i)">
+                        <ion-ripple-effect></ion-ripple-effect>
+                        {{ "APPLYFORM.upload" | translate }}
+                      </button>
+                    </div>
+                  </div>
+                </ion-item>
+                <ion-item lines="nones" mode="ios">
+                  <span
+                    ion-button
+                    icon-left
+                    clear
+                    *ngIf="formGroup.get('form')?.controls.length > 1"
+                    (click)="removeAssessment(i)"
+                  >
+                    <ion-icon name="close"></ion-icon>
+                    {{ "APPLYFORM.remove" | translate }}
+                  </span>
+                  <!--
+										<span ion-button icon-left clear *ngIf="formGroup.controls.form.length > 1"
+										(click)="removeAssessment(i)">
+										<ion-icon name="close"></ion-icon>
+										Remove
+									</span>
+									-->
+                </ion-item>
+              </ion-item-group>
+            </div>
+          </div>
+          <ion-item lines="none" mode="ios">
+            <ion-label class="ion-text-wrap"
+              >{{ "APPLYFORM.everSubmitted" | translate }}
+            </ion-label>
+            <ion-checkbox
+              [(ngModel)]="past_application"
+              [ngModelOptions]="{ standalone: true }"
+            ></ion-checkbox>
+          </ion-item>
+          <ion-item lines="none" mode="ios">
+            <ion-label position="stacked" class="ion-text-wrap">{{
+              "APPLYFORM.specify" | translate
+            }}</ion-label>
+            <ion-input
+              type="text"
+              placeholder="{{ 'APPLYFORM.example' | translate }}: 2015"
+              [(ngModel)]="past_application_number"
+              [ngModelOptions]="{ standalone: true }"
+            ></ion-input>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-button
+              class="btn-green-lg mt-1"
+              (click)="confirmationAlert()"
+              >{{ "APPLYFORM.submitButton" | translate }}</ion-button
+            >
+          </ion-item>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,78 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button color="ghg-green"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-title>
+    {{'HELPDESK.helpdesk'| translate}}
+  </ion-title>
+</ion-header>
+
+<ion-content class="settings">
+
+  <ion-grid>
+
+    <ion-row>
+      <ion-col>
+        <div class="section-title">
+          <h3>{{'HELPDESK.title'| translate}}</h3>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <form [formGroup]="ticketForm">
+          <ion-item mode="ios">
+            <ion-label position="stacked" mode="ios">{{'HELPDESK.comment'| translate}}</ion-label>
+            <ion-textarea placeholder="{{'HELPDESK.commentBox'| translate}}" formControlName="question">
+            </ion-textarea>
+          </ion-item>
+        </form>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item lines="none">
+          <ion-button class="btn-green-lg mt-1" (click)="submitQuestion()">{{'HELPDESK.submit'| translate}}</ion-button>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngFor="let question of questions">
+      <ion-col>
+        <ion-card>
+          <ion-card-header color="light">
+            <ion-card-subtitle>
+              <p class="m-0">{{'HELPDESK.submittedDate' | translate}} - {{question.date_submitted}}</p>
+            </ion-card-subtitle>
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-item lines="none" class="ticket-list">
+              <ion-text class="ion-text-wrap">
+                <h5 style="color: #a9a9a9;">{{'HELPDESK.question'| translate}}</h5>
+                <p>{{question.question}}</p>
+              </ion-text>
+            </ion-item>
+            
+            <div *ngFor="let answer of answers">
+              <div *ngIf="question.id == answer?.question_id">
+                <ion-item lines="none" class="ticket-list">
+                  <ion-text class="ion-text-wrap">
+                    <h5 style="color: #a9a9a9;">{{'HELPDESK.reply'| translate}} - {{'HELPDESK.replyingDate' | translate}} ({{answer.date_submitted}})</h5>
+                    <p>{{answer.answer}}</p>
+                  </ion-text>
+                </ion-item>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+</ion-content>

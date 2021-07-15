@@ -1,0 +1,390 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button color="ghg-green"></ion-back-button>
+      <!--<ion-menu-button color="ghg-green"></ion-menu-button>-->
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-title>
+    MyHome
+  </ion-title>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid class="settings">
+
+    <ion-row>
+      <ion-col>
+        <div class="section-title">
+          <h3>{{'HOUSEDETAIL.detail' | translate}}</h3>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <form [formGroup]="houseCredentials">
+          <ion-item mode="ios">
+            <ion-label position="stacked" mode="ios">{{'HOUSEDETAIL.address' | translate}}*</ion-label>
+            <ion-textarea 
+              clearInput 
+              type="text"
+              [value]="tempHouse.address"
+              formControlName="address"
+            >
+            </ion-textarea>
+          </ion-item>
+          <ion-item mode="ios">
+            <ion-label position="stacked" mode="ios">{{'HOUSEDETAIL.postcode' | translate}}*</ion-label>
+            <ion-input 
+              clearInput 
+              type="number"
+              [value]="tempHouse.postcode"
+              formControlName="postcode"
+            >
+            </ion-input>
+          </ion-item>
+          <ion-item lines="inset">
+            <ion-label position="stacked" mode="ios">{{'HOUSEDETAIL.area' | translate}}*</ion-label>
+            <ion-select placeholder="{{'HOUSEADD.selectOne' | translate}}" [value]="tempHouse.area" formControlName="area">
+              <ion-select-option *ngFor="let area of areas" value="{{area.value}}">{{area.value}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item mode="ios">
+            <ion-label position="stacked">{{'HOUSEDETAIL.assessmentTaxAcc' | translate}}*</ion-label>
+            <ion-input 
+              clearInput 
+              type="text"
+              [value]="tempHouse.assessment_tax_account"
+              formControlName="assessment_tax_account"
+            >
+            </ion-input>
+          </ion-item>
+          <ion-item mode="ios" lines="none" *ngIf="!tempImageEncoded[0] && tempHouse.assessment_tax_doc">
+            <ion-img class="text-center" [src]="tempHouse.assessment_tax_doc"></ion-img>
+          </ion-item>
+          <ion-item mode="ios" lines="none" *ngIf="tempImageEncoded[0] && !tempHouse.assessment_tax_doc">
+            <ion-img class="text-center" [src]="tempImageEncoded[0]"></ion-img>
+          </ion-item>
+          <ion-item mode="ios" lines="none" *ngIf="checkHouseApplication">
+            <ion-row>
+              <ion-col size="auto">
+                <div class="btn-upload-item">
+                  <div class="btn-upload ion-activatable">
+                    <button (click)="openUploadSheet(0)">
+                      <ion-ripple-effect></ion-ripple-effect> {{'HOUSEDETAIL.uploadTaxBill' | translate}}
+                    </button>
+                  </div>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-item>
+
+          <ion-item mode="ios">
+            <ion-label position="stacked" mode="ios">{{'HOUSEDETAIL.buildingType' | translate}}*</ion-label>
+            <ion-select placeholder="{{'HOUSEADD.selectOne' | translate}}" [value]="tempHouse.building_type" formControlName="building_type">
+              <ion-select-option mode="ios" *ngFor="let house of houses" value="{{house.value}}">{{house.text}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item mode="ios">
+            <ion-label position="stacked" mode="ios">{{'HOUSEDETAIL.stayingDuration' | translate}}*</ion-label>
+            <ion-row>
+              <ion-col>
+                <ion-input type="number" placeholder="Year(s)" [value]="tempHouse.staying_duration_years" formControlName="staying_duration_years"></ion-input>
+              </ion-col>
+              <ion-col>
+                <ion-input type="number" placeholder="Month(s)" [value]="tempHouse.staying_duration_months" formControlName="staying_duration_months"></ion-input>
+              </ion-col>
+            </ion-row>
+          </ion-item>
+          <ion-item lines="inset" class="ion-text-wrap">
+            <ion-label class="ion-text-wrap" position="stacked" mode="ios">{{'HOUSEDETAIL.permanentOccupant' | translate}}</ion-label>
+            <ion-input 
+              clearInput 
+              type="number" 
+              placeholder="Eg: 2"
+              [value]="tempHouse.permanent_occupant"
+              formControlName="permanent_occupant"
+            >
+            </ion-input>
+          </ion-item>
+          <ion-item lines="inset">
+            <ion-label position="stacked" mode="ios">{{'HOUSEDETAIL.car' | translate}}*</ion-label>
+            <ion-select placeholder="Select number of car(s)" [placeholder]="tempHouse.vehicle_car" formControlName="vehicle_car">
+              <ion-select-option value="0">0</ion-select-option>
+              <ion-select-option value="1">1</ion-select-option>
+              <ion-select-option value="2">2</ion-select-option>
+              <ion-select-option value="3">3</ion-select-option>
+              <ion-select-option value="4">4</ion-select-option>
+              <ion-select-option value="5">5</ion-select-option>
+              <ion-select-option value="6">6</ion-select-option>
+              <ion-select-option value="7">7</ion-select-option>
+              <ion-select-option value="9">8</ion-select-option>
+              <ion-select-option value="9">9</ion-select-option>
+              <ion-select-option value="10">10</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item lines="inset">
+            <ion-label position="stacked" mode="ios">{{'HOUSEDETAIL.motor' | translate}}*</ion-label>
+            <ion-select placeholder="Select number of motorcycle(s)" [placeholder]="tempHouse.vehicle_motorcycle" formControlName="vehicle_motorcycle">
+              <ion-select-option value="0">0</ion-select-option>
+              <ion-select-option value="1">1</ion-select-option>
+              <ion-select-option value="2">2</ion-select-option>
+              <ion-select-option value="3">3</ion-select-option>
+              <ion-select-option value="4">4</ion-select-option>
+              <ion-select-option value="5">5</ion-select-option>
+              <ion-select-option value="6">6</ion-select-option>
+              <ion-select-option value="7">7</ion-select-option>
+              <ion-select-option value="8">8</ion-select-option>
+              <ion-select-option value="9">9</ion-select-option>
+              <ion-select-option value="10">10</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item lines="inset">
+            <ion-label position="stacked" mode="ios">{{'HOUSEDETAIL.bicycle' | translate}}*</ion-label>
+            <ion-select placeholder="Select number of bicycle(s)" [placeholder]="tempHouse.vehicle_bicycle" formControlName="vehicle_bicycle">
+              <ion-select-option value="0">0</ion-select-option>
+              <ion-select-option value="1">1</ion-select-option>
+              <ion-select-option value="2">2</ion-select-option>
+              <ion-select-option value="3">3</ion-select-option>
+              <ion-select-option value="4">4</ion-select-option>
+              <ion-select-option value="5">5</ion-select-option>
+              <ion-select-option value="6">6</ion-select-option>
+              <ion-select-option value="7">7</ion-select-option>
+              <ion-select-option value="8">8</ion-select-option>
+              <ion-select-option value="9">9</ion-select-option>
+              <ion-select-option value="10">10</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item lines="inset">
+            <ion-label position="stacked" mode="ios">{{'HOUSEDETAIL.otherVehicle' | translate}}*</ion-label>
+            <ion-select placeholder="Select number of other vehicle(s)" [placeholder]="tempHouse.vehicle_other" formControlName="vehicle_other">
+              <ion-select-option value="0">0</ion-select-option>
+              <ion-select-option value="1">1</ion-select-option>
+              <ion-select-option value="2">2</ion-select-option>
+              <ion-select-option value="3">3</ion-select-option>
+              <ion-select-option value="4">4</ion-select-option>
+              <ion-select-option value="5">5</ion-select-option>
+              <ion-select-option value="6">6</ion-select-option>
+              <ion-select-option value="7">7</ion-select-option>
+              <ion-select-option value="8">8</ion-select-option>
+              <ion-select-option value="9">9</ion-select-option>
+              <ion-select-option value="10">10</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item-group>
+            <ion-item-divider>
+              <ion-label>{{'HOUSEDETAIL.electricityBill1' | translate}}</ion-label>
+            </ion-item-divider>
+          
+            <ion-item lines="inset">
+              <ion-label position="stacked" mode="ios">{{'HOUSEDETAIL.electricityMonth1' | translate}}*</ion-label>
+              <ion-datetime displayFormat="MMMM YYYY" placeholder="Select month and year of bill" [value]="tempHouse.electricity_bill_1_month" formControlName="electricity_bill_1_month"></ion-datetime>
+            </ion-item>
+            <ion-item lines="inset">
+              <ion-label position="stacked" mode="ios">{{'HOUSEDETAIL.electricityUsage1' | translate}}*</ion-label>
+              <ion-input class="bill-input" type="number" [value]="tempHouse.electricity_bill_1_usage" formControlName="electricity_bill_1_usage"></ion-input>
+            </ion-item>
+            <ion-item mode="ios" lines="none" *ngIf="!tempImageEncoded[1] && tempHouse.electricity_bill_1_doc">
+              <ion-img class="text-center" [src]="tempHouse.electricity_bill_1_doc"></ion-img>
+            </ion-item>
+            <ion-item mode="ios" lines="none" *ngIf="tempImageEncoded[1] && !tempHouse.electricity_bill_1_doc">
+              <ion-img class="text-center" [src]="tempImageEncoded[1]"></ion-img>
+            </ion-item>
+            <ion-item mode="ios" lines="none" *ngIf="checkHouseApplication">
+              <ion-row>
+                <ion-col size="auto">
+                  <div class="btn-upload-item">
+                    <div class="btn-upload ion-activatable">
+                      <button (click)="openUploadSheet(1)">
+                        <ion-ripple-effect></ion-ripple-effect>{{'HOUSEDETAIL.electricityUpload1' | translate}}
+                      </button>
+                    </div>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-item>
+          </ion-item-group>
+          
+          <ion-item-group>
+            <ion-item-divider>
+              <ion-label>{{'HOUSEDETAIL.electricityBill2' | translate}}</ion-label>
+            </ion-item-divider>
+          
+            <ion-item lines="inset">
+              <ion-label position="stacked" mode="ios">{{'HOUSEDETAIL.electricityMonth2' | translate}}*</ion-label>
+              <ion-datetime displayFormat="MMMM YYYY" placeholder="Select month and year of bill" [value]="tempHouse.electricity_bill_2_month" formControlName="electricity_bill_2_month"></ion-datetime>
+            </ion-item>
+            <ion-item lines="inset">
+              <ion-label position="stacked" mode="ios">{{'HOUSEDETAIL.electricityUsage2' | translate}}*</ion-label>
+              <ion-input class="bill-input" type="number" [value]="tempHouse.electricity_bill_2_usage" formControlName="electricity_bill_2_usage"></ion-input>
+            </ion-item>
+            <ion-item mode="ios" lines="none" *ngIf="!tempImageEncoded[2] && tempHouse.electricity_bill_2_doc">
+              <ion-img class="text-center" [src]="tempHouse.electricity_bill_2_doc"></ion-img>
+            </ion-item>
+            <ion-item mode="ios" lines="none" *ngIf="tempImageEncoded[2] && !tempHouse.electricity_bill_2_doc">
+              <ion-img class="text-center" [src]="tempImageEncoded[2]"></ion-img>
+            </ion-item>
+            <ion-item mode="ios" lines="none" *ngIf="checkHouseApplication">
+              <ion-row>
+                <ion-col size="auto">
+                  <div class="btn-upload-item">
+                    <div class="btn-upload ion-activatable">
+                      <button (click)="openUploadSheet(2)">
+                        <ion-ripple-effect></ion-ripple-effect> {{'HOUSEDETAIL.electricityUpload2' | translate}}
+                      </button>
+                    </div>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-item>
+          </ion-item-group>
+
+          <ion-item-group>
+            <ion-item-divider>
+              <ion-label>{{'HOUSEDETAIL.electricityBill3' | translate}}</ion-label>
+            </ion-item-divider>
+          
+            <ion-item lines="inset">
+              <ion-label position="stacked" mode="ios">{{'HOUSEDETAIL.electricityMonth3' | translate}}*</ion-label>
+              <ion-datetime displayFormat="MMMM YYYY" placeholder="Select month and year of bill" [value]="tempHouse.electricity_bill_3_month" formControlName="electricity_bill_3_month"></ion-datetime>
+            </ion-item>
+            <ion-item lines="inset">
+              <ion-label position="stacked" mode="ios">{{'HOUSEDETAIL.electricityUsage3' | translate}}*</ion-label>
+              <ion-input class="bill-input" type="number" [value]="tempHouse.electricity_bill_3_usage" formControlName="electricity_bill_3_usage"></ion-input>
+            </ion-item>
+            <ion-item mode="ios" lines="none" *ngIf="!tempImageEncoded[3] && tempHouse.electricity_bill_3_doc">
+              <ion-img class="text-center" [src]="tempHouse.electricity_bill_3_doc"></ion-img>
+            </ion-item>
+            <ion-item mode="ios" lines="none" *ngIf="tempImageEncoded[3] && !tempHouse.electricity_bill_3_doc">
+              <ion-img class="text-center" [src]="tempImageEncoded[3]"></ion-img>
+            </ion-item>
+            <ion-item mode="ios" lines="none" *ngIf="checkHouseApplication">
+              <ion-row>
+                <ion-col size="auto">
+                  <div class="btn-upload-item">
+                    <div class="btn-upload ion-activatable">
+                      <button (click)="openUploadSheet(3)">
+                        <ion-ripple-effect></ion-ripple-effect> {{'HOUSEDETAIL.electricityUpload3' | translate}}
+                      </button>
+                    </div>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-item>
+          </ion-item-group>
+
+          <ion-item-group>
+            <ion-item-divider>
+              <ion-label>{{'HOUSEDETAIL.waterBill1' | translate}}</ion-label>
+            </ion-item-divider>
+          
+            <ion-item lines="inset">
+              <ion-label position="stacked" mode="ios">{{'HOUSEDETAIL.waterMonth1' | translate}}*</ion-label>
+              <ion-datetime displayFormat="MMMM YYYY" placeholder="Select month and year of bill" [value]="tempHouse.water_bill_1_month" formControlName="water_bill_1_month"></ion-datetime>
+            </ion-item>
+            <ion-item lines="inset">
+              <ion-label position="stacked" mode="ios">{{'HOUSEDETAIL.waterUsage1' | translate}}*</ion-label>
+              <ion-input class="bill-input" type="number" [value]="tempHouse.water_bill_1_usage" formControlName="water_bill_1_usage"></ion-input>
+            </ion-item>
+            <ion-item mode="ios" lines="none" *ngIf="!tempImageEncoded[4] && tempHouse.water_bill_1_doc">
+              <ion-img class="text-center" [src]="tempHouse.water_bill_1_doc"></ion-img>
+            </ion-item>
+            <ion-item mode="ios" lines="none" *ngIf="tempImageEncoded[4] && !tempHouse.water_bill_1_doc">
+              <ion-img class="text-center" [src]="tempImageEncoded[4]"></ion-img>
+            </ion-item>
+            <ion-item mode="ios" lines="none" *ngIf="checkHouseApplication">
+              <ion-row>
+                <ion-col size="auto">
+                  <div class="btn-upload-item">
+                    <div class="btn-upload ion-activatable">
+                      <button (click)="openUploadSheet(4)">
+                        <ion-ripple-effect></ion-ripple-effect> {{'HOUSEDETAIL.waterUpload1' | translate}}
+                      </button>
+                    </div>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-item>
+          </ion-item-group>
+
+          <ion-item-group>
+            <ion-item-divider>
+              <ion-label>{{'HOUSEDETAIL.waterBill2' | translate}}</ion-label>
+            </ion-item-divider>
+          
+            <ion-item lines="inset">
+              <ion-label position="stacked" mode="ios">{{'HOUSEDETAIL.waterMonth2' | translate}}*</ion-label>
+              <ion-datetime displayFormat="MMMM YYYY" placeholder="Select month and year of bill" [value]="tempHouse.water_bill_2_month" formControlName="water_bill_2_month"></ion-datetime>
+            </ion-item>
+            <ion-item lines="inset">
+              <ion-label position="stacked" mode="ios">{{'HOUSEDETAIL.waterUsage2' | translate}}*</ion-label>
+              <ion-input class="bill-input" type="number" [value]="tempHouse.water_bill_2_usage" formControlName="water_bill_2_usage"></ion-input>
+            </ion-item>
+            <ion-item mode="ios" lines="none" *ngIf="!tempImageEncoded[5] && tempHouse.water_bill_2_doc">
+              <ion-img class="text-center" [src]="tempHouse.water_bill_2_doc"></ion-img>
+            </ion-item>
+            <ion-item mode="ios" lines="none" *ngIf="tempImageEncoded[5] && !tempHouse.water_bill_2_doc">
+              <ion-img class="text-center" [src]="tempImageEncoded[5]"></ion-img>
+            </ion-item>
+            <ion-item mode="ios" lines="none" *ngIf="checkHouseApplication">
+              <ion-row>
+                <ion-col size="auto">
+                  <div class="btn-upload-item">
+                    <div class="btn-upload ion-activatable">
+                      <button (click)="openUploadSheet(5)">
+                        <ion-ripple-effect></ion-ripple-effect> {{'HOUSEDETAIL.waterUpload2' | translate}}
+                      </button>
+                    </div>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-item>
+          </ion-item-group>
+
+          <ion-item-group>
+            <ion-item-divider>
+              <ion-label>{{'HOUSEDETAIL.waterBill3' | translate}}</ion-label>
+            </ion-item-divider>
+          
+            <ion-item lines="inset">
+              <ion-label position="stacked" mode="ios">{{'HOUSEDETAIL.waterMonth3' | translate}}*</ion-label>
+              <ion-datetime displayFormat="MMMM YYYY" placeholder="Select month and year of bill" [value]="tempHouse.water_bill_3_month" formControlName="water_bill_3_month"></ion-datetime>
+            </ion-item>
+            <ion-item lines="inset">
+              <ion-label position="stacked" mode="ios">{{'HOUSEDETAIL.waterUsage3' | translate}}*</ion-label>
+              <ion-input class="bill-input" type="number" [value]="tempHouse.water_bill_3_usage" formControlName="water_bill_3_usage"></ion-input>
+            </ion-item>
+            <ion-item mode="ios" lines="none" *ngIf="!tempImageEncoded[6] && tempHouse.water_bill_3_doc">
+              <ion-img class="text-center" [src]="tempHouse.water_bill_3_doc"></ion-img>
+            </ion-item>
+            <ion-item mode="ios" lines="none" *ngIf="tempImageEncoded[6] && !tempHouse.water_bill_3_doc">
+              <ion-img class="text-center" [src]="tempImageEncoded[6]"></ion-img>
+            </ion-item>
+            <ion-item mode="ios" lines="none" *ngIf="checkHouseApplication">
+              <ion-row>
+                <ion-col size="auto">
+                  <div class="btn-upload-item">
+                    <div class="btn-upload ion-activatable">
+                      <button (click)="openUploadSheet(6)">
+                        <ion-ripple-effect></ion-ripple-effect> {{'HOUSEDETAIL.waterUpload3' | translate}}
+                      </button>
+                    </div>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-item>
+          </ion-item-group>
+
+        </form>
+        <ion-item lines="none" *ngIf="checkHouseApplication">
+          <ion-button class="btn-green-lg mt-1" (click)="updateHouse()">{{'HOUSEDETAIL.update' | translate}}</ion-button>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+</ion-content>

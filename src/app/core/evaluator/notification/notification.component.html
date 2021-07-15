@@ -1,0 +1,38 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button color="ghg-green"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-title>
+    {{ "NOTIFICATION.notification" | translate }}
+  </ion-title>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="!isGotNotification; else gotNotification" class="error-section">
+    <ion-img [src]="imgNotFound"></ion-img>
+    <p>{{ "NOTIFICATION.noNotification" | translate }}</p>
+  </div>
+  <ng-template #gotNotification>
+    <ion-row *ngFor="let notification of notifications">
+      <ion-col>
+        <ion-card mode="ios">
+          <ion-card-content>
+            <ion-item class="history">
+              <ion-label class="ion-text-wrap">
+                <!-- <p>#818128</p> -->
+                <h2 style="font-weight: bold;">{{ notification.title }}</h2>
+                <p>{{ notification.message }}</p>
+              </ion-label>
+              <ion-chip class="chip-green">{{ notification.date_sent }}</ion-chip>
+              <!-- <ion-thumbnail slot="end">
+                <img [src]="imgNotiThumbnail" />
+              </ion-thumbnail> -->
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ng-template>
+</ion-content>

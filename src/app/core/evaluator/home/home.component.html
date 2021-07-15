@@ -1,0 +1,68 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-menu-button color="ghg-green"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-title>
+    Home
+  </ion-title>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+
+    <ion-row>
+      <ion-col>
+        <div class="section-title">
+          <h3>Welcome!</h3>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+
+      <ion-col>
+        <ion-card mode="ios" [routerLink]="['/evaluator/notification']" routerDirection="forward">
+          <img src="assets/img/card/notification.jpg">
+          <ion-card-content>
+            <p class="text-center text-bold">Notification</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col>
+        <ion-card mode="ios" [routerLink]="['/evaluator/application']" routerDirection="forward">
+          <img src="assets/img/card/form.jpg">
+          <ion-card-content>
+            <p class="text-center text-bold">To evaluate</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+    </ion-row>
+
+    <ion-row>
+
+      <ion-col>
+        <ion-card mode="ios" [routerLink]="['/evaluator/history']" routerDirection="forward">
+          <img src="assets/img/card/schedule.jpg">
+          <ion-card-content>
+            <p class="text-center text-bold">Past evaluation</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col>
+        <ion-card mode="ios" [routerLink]="['/evaluator/helpdesk']" routerDirection="forward">
+          <img src="assets/img/card/helpdesk.jpg">
+          <ion-card-content>
+            <p class="text-center text-bold">Helpdesk</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      
+    </ion-row>
+
+  </ion-grid>
+</ion-content>

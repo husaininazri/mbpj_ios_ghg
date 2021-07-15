@@ -1,0 +1,115 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button color="ghg-green"></ion-back-button>
+      <!--<ion-menu-button color="ghg-green"></ion-menu-button>-->
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-title> History </ion-title>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="settings">
+    <ion-row>
+      <ion-col>
+        <div class="section-title">
+          <h3>Application assessment detail</h3>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngFor="let app of application">
+      <ion-col>
+        <form>
+          <div
+            *ngFor="let application_assessment of app.application_assessment"
+          >
+            <ion-item mode="ios">
+              <p>
+                {{ getAspectType(application_assessment.assessment_aspect_id) }}
+              </p>
+              <ion-label position="stacked" mode="ios"
+                >Remarks by applicant</ion-label
+              >
+              <p>{{ application_assessment.remarks }}</p>
+            </ion-item>
+            <ion-item mode="ios">
+              <ion-label position="stacked" mode="ios"
+                >Supporting document</ion-label
+              >
+              <ion-img
+                style="padding-top: 1rem"
+                *ngIf="application_assessment.supporting_doc"
+                class="text-center"
+                [src]="
+                  'https://sgp1.digitaloceanspaces.com/pipeline-project/' +
+                  application_assessment.supporting_doc
+                "
+              ></ion-img>
+            </ion-item>
+
+            <div *ngFor="let evaluation of app.evaluation">
+              <div
+                *ngIf="
+                  evaluation.application_assessment_id ==
+                  application_assessment.id
+                "
+              >
+                <ion-item mode="ios">
+                  <ion-label position="stacked" mode="ios"
+                    >Remarks by evaluator</ion-label
+                  >
+                  <p>{{ evaluation.remarks }}</p>
+                </ion-item>
+              </div>
+            </div>
+          </div>
+        </form>
+      </ion-col>
+    </ion-row>
+
+    <!-- <ion-row>
+      <ion-col>
+        <form>
+          <ion-item mode="ios">
+            <p>Energy</p>
+            <ion-label position="stacked" mode="ios">Initiative</ion-label>
+            <p>This is an initative done by me</p>
+          </ion-item>
+          <ion-item mode="ios">
+            <ion-label position="stacked" mode="ios">Improvement</ion-label>
+            <p>This is an improvement done by me</p>
+          </ion-item>
+          <ion-item mode="ios">
+            <ion-label position="stacked" mode="ios"
+              >Remarks by evaluator</ion-label
+            >
+            <p>A good one</p>
+          </ion-item>
+        </form>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <form>
+          <ion-item mode="ios">
+            <p>Transportation</p>
+            <ion-label position="stacked" mode="ios">Initiative</ion-label>
+            <p>This is an initative done by me</p>
+          </ion-item>
+          <ion-item mode="ios">
+            <ion-label position="stacked" mode="ios">Improvement</ion-label>
+            <p>This is an improvement done by me</p>
+          </ion-item>
+          <ion-item mode="ios">
+            <ion-label position="stacked" mode="ios"
+              >Remarks by evaluator</ion-label
+            >
+            <p>A good one</p>
+          </ion-item>
+        </form>
+      </ion-col>
+    </ion-row> -->
+  </ion-grid>
+</ion-content>

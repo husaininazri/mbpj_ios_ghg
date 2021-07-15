@@ -1,0 +1,107 @@
+<ion-header mode="ios">
+	<ion-toolbar mode="ios">
+		<ion-buttons slot="start">
+			<ion-back-button color="ghg-green"></ion-back-button>
+			<!--<ion-menu-button color="ghg-green"></ion-menu-button>-->
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content class="auth-content">
+	<ion-grid>
+		<ion-row>
+			<ion-col>
+				<div class="section-title mt-4">
+					<h1 class="text-green">{{ 'LOGIN.applicant' | translate}}</h1>
+				</div>
+			</ion-col>
+		</ion-row>
+
+		<ion-row>
+			<ion-col>
+				<div class="section-title mt-4">
+					<h1>{{ 'LOGIN.regHere' | translate}}</h1>
+				</div>
+			</ion-col>
+		</ion-row>
+
+		<ion-row>
+			<ion-col>
+				<div class="mt-4">
+					<form [formGroup]="registerForm">
+						<ion-item lines="none">
+							<ion-label position="stacked" mode="ios">
+								{{ 'LOGIN.username' | translate}}
+							</ion-label>
+							<ion-input
+								clearInput 
+								type="text"
+								mode="ios"
+								placeholder="910102110101"
+								formControlName="username"
+							>
+								<ion-icon name="person-circle-outline" slot="start"></ion-icon>
+							</ion-input>
+							<ng-container *ngFor="let message of registerFormMessage.username">
+								<div class="error-message"
+									*ngIf="registerForm.get('username').hasError(message.type) && (registerForm.get('username').dirty || registerForm.get('username').touched)"
+								>
+									<p class="error-text"><span>*{{ message.message }}</span></p>
+								</div>
+							</ng-container>
+						</ion-item>
+						<ion-item lines="none">
+							<ion-label position="stacked" mode="ios">
+								{{ 'LOGIN.password' | translate}}
+							</ion-label>
+							<ion-input 
+								clearInput
+								type="password"
+								mode="ios"
+								placeholder="********"
+								formControlName="password1"
+							>
+								<ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+							</ion-input>
+							<ng-container *ngFor="let message of registerFormMessage.password">
+								<div class="error-message"
+									*ngIf="registerForm.get('password1').hasError(message.type) && (registerForm.get('password1').dirty || registerForm.get('password1').touched)"
+								>
+									<p class="error-text"><span>*{{ message.message }}</span></p>
+								</div>
+							</ng-container>
+						</ion-item>
+
+						<ion-item lines="none">
+							<ion-label position="stacked" mode="ios">
+								{{ 'LOGIN.confirmPassword' | translate}}
+							</ion-label>
+							<ion-input 
+								clearInput
+								type="password"
+								mode="ios"
+								placeholder="********"
+								formControlName="password2"
+							>
+								<ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+							</ion-input>
+						</ion-item>
+
+						<ion-item lines="none" mode="ios">
+							<ion-button 
+								class="btn-green-lg mt-1"
+								[disabled]="registerForm.status == 'INVALID'"
+								(click)="register()"
+							>
+								{{ 'LOGIN.regApplicant' | translate }}
+							</ion-button>
+						</ion-item>
+						<div class="text-center">
+							<p [routerLink]="['/auth/forgot']">{{ 'LOGIN.btnForgot' | translate }}</p>
+						</div>
+					</form>
+				</div>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+</ion-content>

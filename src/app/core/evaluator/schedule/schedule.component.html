@@ -1,0 +1,52 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button color="ghg-green"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-title>
+    Schedule
+  </ion-title>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+
+    <ion-row>
+      <ion-col>
+        <div class="section-title">
+          <h3>To schedule list</h3>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <div *ngIf="!isGotApplication; else gotApplication" class="error-home-section">
+      <ion-img [src]="imgNotFound"></ion-img>
+      <p>No nominated application yet</p>
+    </div>
+
+    <ng-template #gotApplication>
+      <ion-row *ngFor="let house of loadedNominatedHouses">
+        <ion-col>
+          <ion-card mode="ios">
+            <ion-card-header color="light">
+              <ion-card-subtitle>
+                <p class="m-0">16 December 2019</p>
+              </ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-item lines="none">
+                <ion-label class="ion-text-wrap">
+                  <p>Syafiq Basri</p>
+                  <h5>{{house.address}}</h5>
+                </ion-label>
+                <ion-chip class="chip-blue" (click)="setDate(house)">View</ion-chip>
+              </ion-item>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ng-template>
+
+  </ion-grid>
+</ion-content>

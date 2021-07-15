@@ -1,0 +1,8 @@
+{
+  "name": "mbpj-ghg-mobile-v3",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular",
+  "id": "c6daa0fb"
+}

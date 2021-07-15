@@ -1,0 +1,47 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button color="ghg-green"></ion-back-button>
+      <!--<ion-menu-button color="ghg-green"></ion-menu-button>-->
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-title>
+
+  </ion-title>
+</ion-header>
+
+<ion-content>
+  <div 
+    class="leaflet-map"
+    leaflet 
+    [leafletOptions]="options"
+    (leafletMapReady)="onMapReady($event)">
+  </div>
+  <ion-grid class="settings">
+    <ion-row>
+      <ion-col>
+        <ion-item lines="none">
+          <ion-label mode="ios" position="stacked">Latitude</ion-label>
+          <div *ngIf="markerCoordinates">
+            <p>{{markerCoordinates.lat}}</p>
+          </div>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item lines="none">
+          <ion-label mode="ios" position="stacked">Longitude</ion-label>
+          <div *ngIf="markerCoordinates">
+            <p>{{markerCoordinates.lng}}</p>
+          </div>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-button class="btn-green-lg mt-1">Confirm</ion-button>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

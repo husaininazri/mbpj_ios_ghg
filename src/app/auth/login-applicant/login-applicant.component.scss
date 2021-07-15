@@ -1,0 +1,15 @@
+.auth-content {
+    --background: #fff !important;
+}
+
+.auth-content-form {
+    padding-top: 40vh;
+}
+
+.error-text {
+    margin: 0;
+    span {
+        color: red;
+        font-size: 0.8rem
+    }
+}

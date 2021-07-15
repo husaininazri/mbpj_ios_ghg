@@ -1,0 +1,63 @@
+.login-content {
+    height: 100vh;
+    max-height: 100vh;
+    min-height: 100vh;
+    //--background: #fff !important;
+    --background: #fff url('src/assets/img/custom/bg-mbpj.JPG') no-repeat 50% 20%;
+    text-align: center;
+    -ms-background-size: cover;
+    -o-background-size: cover;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    background-size: cover;
+    z-index: 9999;
+}
+.login-bg {
+    background-image: url('src/assets/img/custom/mbpj-tower-2.png');
+    z-index: 1;
+}
+
+.login-logo {
+    margin-top: 18vh;
+    max-width: 6rem;
+}
+
+.house-img {
+    max-width: 50vw;
+}
+
+.login-title {
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    h2 {
+        font-size: 1.5em;
+        color: white;
+    }
+}
+
+.login-selector {
+    margin-top: 4vh;
+    padding-right: 5vh;
+    padding-left: 5vh;
+    ion-item {
+        --border-radius: 1rem;
+        --background: rgb(255, 255, 255);
+        // --background: rgba(255, 255, 255, 0.589);
+    }
+    ion-button {
+        margin-top: 2vh;
+    }
+}
+
+.login-footer {
+    bottom: 1rem;
+    position: absolute;
+    width: 100%;
+    p {
+        color: white;
+    }
+    span {
+        font-size: 0.8rem;
+        color: white;
+    }
+}

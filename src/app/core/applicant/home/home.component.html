@@ -1,0 +1,135 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-menu-button color="ghg-green"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-title>
+    {{'HOME.home'| translate}}
+  </ion-title>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <div class="section-title">
+          <h3>{{'HOME.welcome' | translate}}!</h3>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-card mode="ios" [routerLink]="['/applicant/house']" routerDirection="forward">
+          <img src="assets/img/card/house.jpg">
+          <ion-card-content>
+            <p class="text-center text-bold">{{'HOME.house' | translate}}</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      
+      <ion-col>
+        <ion-card mode="ios" [routerLink]="['/applicant/apply-start']" routerDirection="forward">
+          <img src="assets/img/card/form.jpg">
+          <ion-card-content>
+            <p class="text-center text-bold">{{'HOME.apply' | translate}}</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-card mode="ios" [routerLink]="['/applicant/history']" routerDirection="forward">
+          <img src="assets/img/card/bookshelf.jpg">
+          <ion-card-content>
+            <p class="text-center text-bold">{{'HOME.history' | translate}}</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col>
+        <ion-card mode="ios" [routerLink]="['/applicant/notification']" routerDirection="forward">
+          <img src="assets/img/card/notification.jpg">
+          <ion-card-content>
+            <p class="text-center text-bold">{{'HOME.notification' | translate}}</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <div class="section-title">
+          <h3>{{'HOME.appStatus' | translate}}</h3>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <div *ngIf="!isGotApplication; else gotApplication" class="error-home-section">
+      <ion-img [src]="imgNotFound"></ion-img>
+      <p>{{'HOME.noApplication' | translate}}</p>
+    </div>
+
+    <ng-template #gotApplication>
+      <ion-row *ngFor="let application of applications">
+        <ion-col>
+          <ion-card mode="ios">
+            <ion-card-content>
+              <ion-item lines="none" *ngIf="application.status == 'CM'">
+                <ion-label>
+                  <p>{{'HOME.submissionDate' | translate}}:</p>
+                  <h5>{{application.date_submitted}}</h5>
+                </ion-label>
+                <ion-chip class="chip-green">{{'HOME.completed' | translate}}</ion-chip>
+              </ion-item>
+              <ion-item lines="none" *ngIf="application.status == 'CR'">
+                <ion-label>
+                  <p>{{'HOME.submissionDate' | translate}}:</p>
+                  <h5>{{application.date_submitted}}</h5>
+                </ion-label>
+                <ion-chip class="chip-purple">{{'HOME.created' | translate}}</ion-chip>
+              </ion-item>
+              <ion-item lines="none" *ngIf="application.status == 'IE'">
+                <ion-label>
+                  <p>{{'HOME.submissionDate' | translate}}:</p>
+                  <h5>{{application.date_submitted}}</h5>
+                </ion-label>
+                <ion-chip class="chip-light-orange">{{'HOME.inEvaluation' | translate}}</ion-chip>
+              </ion-item>
+              <ion-item lines="none" *ngIf="application.status == 'IP'">
+                <ion-label>
+                  <p>{{'HOME.submissionDate' | translate}}:</p>
+                  <h5>{{application.date_submitted}}</h5>
+                </ion-label>
+                <ion-chip class="chip-orange">{{'HOME.inProgress' | translate}}</ion-chip>
+              </ion-item>
+              <ion-item lines="none" *ngIf="application.status == 'PD'">
+                <ion-label>
+                  <p>{{'HOME.submissionDate' | translate}}:</p>
+                  <h5>{{application.date_submitted}}</h5>
+                </ion-label>
+                <ion-chip class="chip-dark-green">{{'HOME.paid' | translate}}</ion-chip>
+              </ion-item>
+              <ion-item lines="none" *ngIf="application.status == 'RJ'">
+                <ion-label>
+                  <p>{{'HOME.submissionDate' | translate}}:</p>
+                  <h5>{{application.date_submitted}}</h5>
+                </ion-label>
+                <ion-chip class="chip-red">{{'HOME.rejected' | translate}}</ion-chip>
+              </ion-item>
+              <ion-item lines="none" *ngIf="application.status == 'SM'">
+                <ion-label>
+                  <p>{{'HOME.submissionDate' | translate}}:</p>
+                  <h5>{{application.date_submitted}}</h5>
+                </ion-label>
+                <ion-chip class="chip-light-orange">{{'HOME.submitted' | translate}}</ion-chip>
+              </ion-item>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ng-template>
+  </ion-grid>
+</ion-content>

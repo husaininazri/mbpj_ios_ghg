@@ -1,0 +1,84 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button color="ghg-green"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-title>
+    {{'HISTORY.history' | translate}}
+  </ion-title>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid>
+
+    <ion-row>
+      <ion-col>
+        <div class="section-title">
+          <h3>{{'HISTORY.title' | translate}}</h3>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <div *ngIf="applications.length == 0; else gotHistory" class="error-section">
+      <ion-img [src]="imgNotFound"></ion-img>
+      <p>{{'HISTORY.noHistory' | translate}}</p>
+    </div>
+
+    <ng-template #gotHistory>
+      <ion-row>
+        <ion-col>
+          <ion-card *ngFor="let application of applications" mode="ios">
+            <ion-card-content>
+              <ion-item class="history">
+                <ion-thumbnail slot="start">
+                  <img [src]="imgHistoryThumbnail">
+                </ion-thumbnail>
+                <ion-label class="ion-text-wrap">
+                  <div>
+                    <!-- <p *ngIf="application.applied_house == house.id"> -->
+                      {{application.applied_house[0].address}}, {{application.applied_house[0].postcode}}, {{application.applied_house[0].area}}
+                    <!-- </p> -->
+                  </div>
+                  
+                  <p>{{application.date_submitted}}</p>
+                  <p *ngIf="application.status == 'CM'">
+                    {{'HOME.completed' | translate}}
+                  </p>
+                  <p *ngIf="application.status == 'CR'">
+                    {{'HOME.created' | translate}}
+                  </p>
+                  <p *ngIf="application.status == 'IE'">
+                    {{'HOME.inEvaluation' | translate}}
+                  </p>
+                  <p *ngIf="application.status == 'IP'">
+                    {{'HOME.inProgress' | translate}}
+                  </p>
+                  <p *ngIf="application.status == 'PD'">
+                    {{'HOME.paid' | translate}}
+                  </p>
+                  <p *ngIf="application.status == 'RJ'">
+                    {{'HOME.rejected' | translate}}
+                  </p>
+                  <p *ngIf="application.status == 'SM'">
+                    {{'HOME.submitted' | translate}}
+                  </p>
+                </ion-label>
+                <div class="btn-upload-item">
+                  <div class="btn-upload ion-activatable">
+                    <button (click)="clickHistoryView(application)">
+                      <ion-ripple-effect></ion-ripple-effect> {{'HISTORY.viewButton' | translate}}
+                    </button>
+                  </div>
+                </div>
+              </ion-item>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ng-template>
+
+  </ion-grid>
+
+</ion-content>

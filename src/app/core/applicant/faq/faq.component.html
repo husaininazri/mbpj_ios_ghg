@@ -1,0 +1,41 @@
+<ion-header mode="ios">
+	<ion-toolbar mode="ios">
+		<ion-buttons slot="start">
+			<ion-back-button color="ghg-green"></ion-back-button>
+		</ion-buttons>
+	</ion-toolbar>
+	<ion-title>
+		FAQ
+	</ion-title>
+</ion-header>
+
+<ion-content class="settings">
+	<ion-grid>
+		<ion-row>
+			<ion-col>
+				<div class="section-title">
+					<h3>FAQ</h3>
+				</div>
+			</ion-col>
+		</ion-row>
+
+		<ion-row>
+			<ion-col>
+				<ion-item mode="ios" lines="none" style="margin-top: 12px;">
+					<mat-accordion>
+						<mat-expansion-panel *ngFor="let faq of faqs">
+							<mat-expansion-panel-header collapsedHeight="*" expandedHeight="*">
+								<mat-panel-title class="ion-text-justify text-bold">
+									{{faq.question}}
+								</mat-panel-title>
+							</mat-expansion-panel-header>
+							<p class="ion-text-justify text-light">
+								{{faq.answer}}
+							</p>
+						</mat-expansion-panel>
+					</mat-accordion>
+				</ion-item>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+</ion-content>

@@ -1,0 +1,63 @@
+<ion-header mode="ios">
+	<ion-toolbar mode="ios">
+		<ion-buttons slot="start">
+			<ion-back-button color="ghg-green"></ion-back-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content class="auth-content">
+	<ion-grid>
+		<ion-row>
+			<ion-col>
+				<div class="section-title mt-4">
+					<h1 class="text-green"> :( </h1>
+				</div>
+			</ion-col>
+		</ion-row>
+
+		<ion-row>
+			<ion-col>
+				<div class="section-title mt-4">
+					<h1>{{ 'LOGIN.resetHere' | translate}}</h1>
+				</div>
+			</ion-col>
+		</ion-row>
+
+		<ion-row>
+			<ion-col>
+				<div class="mt-4">
+					<form [formGroup]="resetForm">
+						<ion-item lines="none">
+							<ion-label position="stacked" mode="ios">{{ 'LOGIN.email' | translate}}</ion-label>
+							<ion-input 
+								clearInput
+								type="email"
+								mode="ios"
+								placeholder="example@exampler.com.my"
+								formControlName="email"
+							>
+								<ion-icon name="mail" slot="start"></ion-icon>
+							</ion-input>
+							<ng-container *ngFor="let message of resetFormMessage.email">
+								<div class="error-message"
+									*ngIf="resetForm.get('email').hasError(message.type) && (resetForm.get('email').dirty || resetForm.get('email').touched)">
+									<p class="error-text"><span>*{{ message.message }}</span></p>
+								</div>
+							</ng-container>
+						</ion-item>
+						<ion-item lines="none" mode="ios">
+							<ion-button
+								class="btn-green-lg mt-1"
+								[disabled]="resetForm.status == 'INVALID'"
+								(click)="reset()"
+							>
+								{{ 'LOGIN.resetPassword' | translate }}
+							</ion-button>
+						</ion-item>
+					</form>
+				</div>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+</ion-content>
